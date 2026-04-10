@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jed Aloui — Portfolio | Créateur de Ghost-OS-Core</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<style>
+  :root {
+    --bg: #03050a;
+    --surface: #0a1020;
+    --border: #1a2a45;
+    --accent: #00e5ff;
+    --accent2: #7b2fff;
+    --accent3: #ff2d6e;
+    --accent4: #00ff88;
+    --text: #e0eaf8;
+    --muted: #8a9fb8;
+    --mono: 'Share Tech Mono', monospace;
+    --sans: 'Syne', sans-serif;
+    --glow: 0 0 25px rgba(0, 229, 255, 0.4);
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; overflow-x: hidden; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    overflow-x: hidden;
+    cursor: none;
+    line-height: 1.6;
+  }
+
+  /* BARRE DE PROGRESSION */
+  #scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3));
+    z-index: 10001;
+    transition: width 0.1s ease-out;
+    box-shadow: 0 0 20px var(--accent);
+  }
+
+  /* SCANLINES */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.2) 2px, rgba(0,0,0,0.2) 4px);
+    pointer-events: none;
+    z-index: 9998;
+    animation: scanlines 12s linear infinite;
+  }
+
+  @keyframes scanlines {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(10px); }
+  }
+
+  /* GRID BACKGROUND */
+  .grid-bg {
+    position: fixed;
+    inset: 0;
+    background-image: 
+      linear-gradient(rgba(0,229,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,255,0.02) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* CUSTOM CURSOR */
+  .cursor {
+    width: 10px; height: 10px;
+    background: var(--accent);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 10000;
+    transform: translate(-50%, -50%);
+    mix-blend-mode: screen;
+    box-shadow: 0 0 15px var(--accent);
+    transition: width 0.3s, height 0.3s, background-color 0.3s;
+  }
+
+  .cursor-trail {
+    width: 30px; height: 30px;
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.15s ease-out, width 0.3s, height 0.3s, border-color 0.3s;
+    opacity: 0.6;
+  }
+
+  .cursor.active { width: 50px; height: 50px; background: var(--accent2); box-shadow: 0 0 30px var(--accent2); }
+  .cursor-trail.active { width: 70px; height: 70px; border-color: var(--accent2); border-width: 2px; opacity: 0.9; }
+
+  /* GLOWING ORBS */
+  .orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(130px);
+    pointer-events: none;
+    opacity: 0.25;
+    z-index: 1;
+    transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .orb-1 { width: 700px; height: 700px; background: var(--accent2); top: -15%; left: -15%; }
+  .orb-2 { width: 600px; height: 600px; background: var(--accent); bottom: -10%; right: -10%; }
+  .orb-3 { width: 400px; height: 400px; background: var(--accent3); top: 35%; left: 50%; opacity: 0.12; }
+  .orb-4 { width: 350px; height: 350px; background: var(--accent4); bottom: 30%; right: 20%; opacity: 0.15; }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 5vw;
+    background: rgba(3, 5, 10, 0.7);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    transition: all 0.4s;
+  }
+
+  nav.scrolled { 
+    padding: 1rem 5vw; 
+    background: rgba(3, 5, 10, 0.95); 
+    box-shadow: 0 10px 40px rgba(0,229,255,0.1);
+    border-bottom-color: var(--accent);
+  }
+
+  .nav-logo {
+    font-family: var(--mono);
+    color: var(--accent);
+    font-size: 1.3rem;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: 0.3s;
+  }
+
+  .nav-logo:hover { text-shadow: 0 0 20px var(--accent); }
+
+  .nav-logo::before { content: '<'; color: var(--accent2); }
+  .nav-logo::after { content: '/>'; color: var(--accent2); }
+
+  .nav-links { display: flex; gap: 3rem; list-style: none; }
+  .nav-links a {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: 0.3s;
+    position: relative;
+  }
+
+  .nav-links a:hover { color: var(--accent); text-shadow: 0 0 10px var(--accent); }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: -6px; left: 0; width: 0; height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    transition: 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .nav-links a:hover::after { width: 100%; }
+
+  /* SECTIONS */
+  section {
+    position: relative;
+    z-index: 2;
+    min-height: 100vh;
+    padding: 120px 10vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  /* HERO */
+  #hero { text-align: left; }
+  .hero-content { max-width: 1000px; }
+  
+  .hero-tag {
+    font-family: var(--mono);
+    color: var(--accent);
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    display: block;
+    transform: translateY(20px);
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+    letter-spacing: 0.2em;
+  }
+
+  .hero-name {
+    font-size: clamp(3.5rem, 12vw, 7rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeUp 0.8s 0.4s forwards;
+  }
+
+  .hero-name span {
+    background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3), var(--accent4));
+    background-size: 300% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shine 6s linear infinite;
+  }
+
+  @keyframes shine {
+    to { background-position: 300% center; }
+  }
+
+  .hero-subtitle {
+    font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+    color: var(--muted);
+    max-width: 700px;
+    margin-bottom: 3rem;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeUp 0.8s 0.6s forwards;
+    line-height: 1.8;
+  }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.8s forwards;
+  }
+
+  /* BUTTONS */
+  .btn {
+    font-family: var(--mono);
+    padding: 1.1rem 3rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.85rem;
+    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    border: none;
+    cursor: pointer;
+  }
+
+  .btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transform: translateX(-100%);
+    animation: shimmer 3s infinite;
+  }
+
+  @keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+
+  .btn-primary { background: var(--accent); color: var(--bg); border: 2px solid var(--accent); }
+  .btn-primary:hover { background: transparent; color: var(--accent); box-shadow: var(--glow); transform: scale(1.05) translateY(-2px); }
+
+  .btn-outline { background: transparent; color: var(--accent); border: 2px solid var(--accent); }
+  .btn-outline:hover { background: rgba(0, 229, 255, 0.1); box-shadow: var(--glow); transform: scale(1.05) translateY(-2px); }
+
+  /* SECTION HEADERS */
+  .section-header { margin-bottom: 5rem; display: flex; align-items: center; gap: 25px; }
+  .section-num { font-family: var(--mono); color: var(--accent); font-size: 1.4rem; font-weight: 800; }
+  .section-title { font-size: clamp(2.2rem, 5vw, 3.5rem); font-weight: 800; }
+  .section-line { flex-grow: 1; height: 2px; background: linear-gradient(90deg, var(--border), transparent); }
+
+  /* ABOUT */
+  .about-container { display: grid; grid-template-columns: 1.3fr 0.7fr; gap: 5rem; align-items: start; }
+  .about-text p { margin-bottom: 1.8rem; font-size: 1.15rem; color: var(--muted); line-height: 1.9; }
+  .about-text strong { color: var(--accent); font-weight: 700; }
+
+  .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
+  .stat-card {
+    background: rgba(10, 16, 32, 0.6);
+    padding: 2.5rem;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    text-align: center;
+    transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(0,229,255,0.1), transparent);
+    opacity: 0;
+    transition: 0.4s;
+  }
+  .stat-card:hover { border-color: var(--accent); transform: translateY(-12px); box-shadow: var(--glow); }
+  .stat-card:hover::before { opacity: 1; }
+  .stat-val { display: block; font-size: 2.8rem; font-weight: 800; color: var(--accent); margin-bottom: 8px; }
+  .stat-label { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
+
+  /* FEATURED PROJECT */
+  .featured-project {
+    background: linear-gradient(135deg, rgba(123,47,255,0.1), rgba(0,229,255,0.05));
+    border: 2px solid var(--accent2);
+    border-radius: 15px;
+    padding: 4rem;
+    margin: 4rem 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .featured-project::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent2), transparent);
+    animation: shimmerLine 3s infinite;
+  }
+
+  @keyframes shimmerLine {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+
+  .featured-badge {
+    display: inline-block;
+    background: var(--accent2);
+    color: white;
+    padding: 0.6rem 1.5rem;
+    border-radius: 50px;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 10px var(--accent2); }
+    50% { box-shadow: 0 0 25px var(--accent2); }
+  }
+
+  .featured-title { font-size: 2.5rem; font-weight: 800; margin-bottom: 1.5rem; }
+  .featured-desc { font-size: 1.1rem; color: var(--muted); margin-bottom: 2rem; line-height: 1.9; }
+  .featured-features { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-bottom: 2rem; }
+  .feature-item {
+    padding: 1.5rem;
+    background: rgba(0,0,0,0.3);
+    border-left: 3px solid var(--accent);
+    border-radius: 6px;
+  }
+  .feature-item strong { color: var(--accent); display: block; margin-bottom: 0.5rem; }
+  .feature-item { color: var(--muted); }
+
+  /* SKILLS */
+  .skills-wrapper { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 35px; }
+  .skill-box {
+    background: rgba(10, 16, 32, 0.6);
+    padding: 3rem;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+  .skill-box:hover { border-color: var(--accent2); transform: translateY(-12px); }
+  .skill-box::before {
+    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    transform: scaleX(0); transition: 0.5s; transform-origin: left;
+  }
+  .skill-box:hover::before { transform: scaleX(1); }
+
+  .skill-title { font-family: var(--mono); color: var(--accent); margin-bottom: 2rem; font-size: 1.2rem; font-weight: 800; letter-spacing: 0.1em; }
+  .skill-list { display: flex; flex-wrap: wrap; gap: 12px; }
+  .skill-item {
+    padding: 8px 16px;
+    background: rgba(0,229,255,0.08);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 0.9rem;
+    transition: 0.3s;
+  }
+  .skill-item:hover { background: var(--accent); color: var(--bg); border-color: var(--accent); transform: scale(1.1); }
+
+  /* PROJECTS */
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 35px; }
+  .project-card {
+    background: rgba(10, 16, 32, 0.6);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+  }
+  .project-card:hover {
+    transform: translateY(-18px) scale(1.02);
+    border-color: var(--accent);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.5), 0 0 30px rgba(0,229,255,0.15);
+  }
+  .project-img {
+    height: 220px;
+    background: linear-gradient(135deg, #1a2f50, #0d121d);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 5rem;
+    transition: 0.5s;
+    position: relative;
+    overflow: hidden;
+  }
+  .project-img::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+    transform: translateX(-100%);
+    animation: shimmerImg 3s infinite;
+  }
+
+  @keyframes shimmerImg {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+
+  .project-card:hover .project-img { transform: scale(1.15); }
+  
+  .project-info { padding: 2.5rem; }
+  .project-name { font-size: 1.5rem; font-weight: 800; margin-bottom: 12px; }
+  .project-desc { color: var(--muted); font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.7; }
+  .project-tech { display: flex; gap: 12px; flex-wrap: wrap; }
+  .tech-tag { font-family: var(--mono); font-size: 0.75rem; color: var(--accent); background: rgba(0,229,255,0.1); padding: 6px 12px; border-radius: 4px; }
+
+  /* TIMELINE */
+  .timeline { position: relative; max-width: 900px; margin: 0 auto; padding-left: 50px; }
+  .timeline::before {
+    content: ''; position: absolute; left: 0; top: 0; width: 2px; height: 100%;
+    background: linear-gradient(180deg, var(--accent), var(--accent2), transparent);
+    animation: timelineGrow 1.5s ease-out forwards;
+  }
+
+  @keyframes timelineGrow {
+    from { scaleY(0); transform-origin: top; }
+    to { scaleY(1); }
+  }
+
+  .timeline-item { position: relative; margin-bottom: 60px; }
+  .timeline-dot {
+    position: absolute; left: -58px; top: 8px; width: 18px; height: 18px;
+    background: var(--accent); border-radius: 50%; border: 4px solid var(--bg);
+    box-shadow: 0 0 20px var(--accent);
+    animation: dotPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes dotPulse {
+    0%, 100% { box-shadow: 0 0 10px var(--accent); }
+    50% { box-shadow: 0 0 30px var(--accent); }
+  }
+
+  .time-date { font-family: var(--mono); color: var(--accent); font-size: 0.9rem; margin-bottom: 8px; display: block; font-weight: 700; }
+  .time-title { font-size: 1.4rem; font-weight: 800; margin-bottom: 8px; }
+  .time-sub { color: var(--accent2); font-family: var(--mono); font-size: 0.95rem; margin-bottom: 12px; display: block; }
+  .time-desc { color: var(--muted); line-height: 1.8; }
+
+  /* CONTACT */
+  .contact-wrapper { text-align: center; max-width: 800px; margin: 0 auto; }
+  .contact-title { font-size: 3.5rem; font-weight: 800; margin-bottom: 25px; }
+  .contact-text { font-size: 1.3rem; color: var(--muted); margin-bottom: 50px; line-height: 1.8; }
+  .contact-methods { display: flex; justify-content: center; gap: 35px; flex-wrap: wrap; }
+  .contact-link {
+    display: flex; align-items: center; gap: 12px;
+    text-decoration: none; color: var(--text); font-family: var(--mono);
+    padding: 18px 30px; background: rgba(10, 16, 32, 0.6); border: 1px solid var(--border);
+    border-radius: 10px; transition: 0.4s; font-size: 0.9rem;
+  }
+  .contact-link:hover { border-color: var(--accent); transform: translateY(-8px); box-shadow: var(--glow); color: var(--accent); }
+
+  footer {
+    padding: 5rem 10vw;
+    text-align: center;
+    border-top: 1px solid var(--border);
+    font-family: var(--mono);
+    color: var(--muted);
+    font-size: 0.8rem;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .about-container { grid-template-columns: 1fr; }
+    section { padding: 80px 5vw; }
+    .hero-name { font-size: 3rem; }
+    .featured-project { padding: 2rem; }
+    .featured-project { grid-template-columns: 1fr; }
+  }
+
+  /* CUSTOM SCROLLBAR */
+  ::-webkit-scrollbar { width: 10px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+</style>
+</head>
+<body>
+
+  <div id="scroll-progress"></div>
+  <div class="grid-bg"></div>
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-trail" id="cursor-trail"></div>
+
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class="orb orb-4"></div>
+
+  <nav id="navbar">
+    <a href="#" class="nav-logo">JED ALOUI</a>
+    <ul class="nav-links">
+      <li><a href="#hero">Accueil</a></li>
+      <li><a href="#about">À propos</a></li>
+      <li><a href="#skills">Compétences</a></li>
+      <li><a href="#projects">Projets</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section id="hero">
+    <div class="hero-content">
+      <span class="hero-tag">🚀 Explorateur de l'IA & Développeur Innovant</span>
+      <h1 class="hero-name">Salut, je suis <span>Jed Aloui.</span></h1>
+      <p class="hero-subtitle">Élève de 4ème passionné par l'intelligence artificielle et le développement. Créateur de <strong>Ghost-OS-Core</strong>, une IA révolutionnaire. Je conçois des solutions innovantes en fusionnant créativité et technologies de pointe.</p>
+      <div class="hero-cta">
+        <a href="#projects" class="btn btn-primary">Voir Ghost-OS-Core</a>
+        <a href="#contact" class="btn btn-outline">Me contacter</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="section-header" data-aos="fade-right">
+      <span class="section-num">01.</span>
+      <h2 class="section-title">À Propos</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="about-container">
+      <div class="about-text" data-aos="fade-up">
+        <p>Actuellement en <strong>4ème au Collège Henri Wallon</strong> à Marseille, je dédie mon temps à l'exploration des possibilités infinies offertes par l'IA et le développement.</p>
+        <p>Je suis <strong>autonome, curieux et créatif</strong>. Pour moi, l'IA n'est pas juste un outil, c'est un partenaire de création. Je maîtrise des outils comme <strong>Claude, ChatGPT, Gemini et Google AI Studio</strong> pour concevoir des solutions concrètes.</p>
+        <p>Mon projet phare : <strong>Ghost-OS-Core</strong>, une IA sophistiquée que j'ai développée. Je suis actuellement à la recherche d'un <strong>stage d'observation de 3ème</strong> dans une entreprise technologique pour découvrir le monde professionnel.</p>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card" data-aos="zoom-in" data-aos-delay="100">
+          <span class="stat-val">2+</span>
+          <span class="stat-label">Années d'XP</span>
+        </div>
+        <div class="stat-card" data-aos="zoom-in" data-aos-delay="200">
+          <span class="stat-val">20+</span>
+          <span class="stat-label">Projets IA</span>
+        </div>
+        <div class="stat-card" data-aos="zoom-in" data-aos-delay="300">
+          <span class="stat-val">4</span>
+          <span class="stat-label">Langues</span>
+        </div>
+        <div class="stat-card" data-aos="zoom-in" data-aos-delay="400">
+          <span class="stat-val">∞</span>
+          <span class="stat-label">Curiosité</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="section-header" data-aos="fade-right">
+      <span class="section-num">02.</span>
+      <h2 class="section-title">Compétences</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="skills-wrapper">
+      <div class="skill-box" data-aos="fade-up" data-aos-delay="100">
+        <h3 class="skill-title">🤖 Intelligence Artificielle</h3>
+        <div class="skill-list">
+          <span class="skill-item">Prompt Engineering</span>
+          <span class="skill-item">AI Agents</span>
+          <span class="skill-item">Claude & GPT-4</span>
+          <span class="skill-item">Google AI Studio</span>
+          <span class="skill-item">Gemini</span>
+          <span class="skill-item">Relevance AI</span>
+        </div>
+      </div>
+      <div class="skill-box" data-aos="fade-up" data-aos-delay="200">
+        <h3 class="skill-title">💻 Développement</h3>
+        <div class="skill-list">
+          <span class="skill-item">HTML / CSS</span>
+          <span class="skill-item">JavaScript</span>
+          <span class="skill-item">Python</span>
+          <span class="skill-item">Git / GitHub</span>
+          <span class="skill-item">GitLab</span>
+          <span class="skill-item">VS Code</span>
+        </div>
+      </div>
+      <div class="skill-box" data-aos="fade-up" data-aos-delay="300">
+        <h3 class="skill-title">⚡ Automatisation</h3>
+        <div class="skill-list">
+          <span class="skill-item">Make.com</span>
+          <span class="skill-item">n8n</span>
+          <span class="skill-item">Workflow Design</span>
+          <span class="skill-item">API Integration</span>
+          <span class="skill-item">Gestion de Projets</span>
+          <span class="skill-item">Débogage</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="section-header" data-aos="fade-right">
+      <span class="section-num">03.</span>
+      <h2 class="section-title">Projets Sélectionnés</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <!-- FEATURED PROJECT: GHOST-OS-CORE -->
+    <div class="featured-project" data-aos="zoom-in">
+      <span class="featured-badge">⭐ Projet Phare</span>
+      <h3 class="featured-title">Ghost-OS-Core</h3>
+      <p class="featured-desc">Une intelligence artificielle sophistiquée que j'ai créée et développée. Ghost-OS-Core est capable d'apprentissage continu, de raisonnement avancé et d'interaction naturelle. C'est mon projet le plus ambitieux et le reflet de ma passion pour l'IA.</p>
+      <div class="featured-features">
+        <div class="feature-item">
+          <strong>🧠 Architecture Avancée</strong>
+          Système de raisonnement multi-couches
+        </div>
+        <div class="feature-item">
+          <strong>🔄 Apprentissage Continu</strong>
+          Amélioration progressive des capacités
+        </div>
+        <div class="feature-item">
+          <strong>💬 Interaction Naturelle</strong>
+          Communication fluide et contextuelle
+        </div>
+        <div class="feature-item">
+          <strong>🚀 Performance Optimale</strong>
+          Exécution rapide et efficace
+        </div>
+      </div>
+      <div class="project-tech">
+        <span class="tech-tag">#AI</span>
+        <span class="tech-tag">#Machine Learning</span>
+        <span class="tech-tag">#Python</span>
+        <span class="tech-tag">#Advanced Algorithms</span>
+      </div>
+    </div>
+
+    <div class="projects-grid">
+      <div class="project-card" data-aos="fade-up">
+        <div class="project-img">🌐</div>
+        <div class="project-info">
+          <h3 class="project-name">Web Creation AI</h3>
+          <p class="project-desc">Développement de sites web dynamiques en utilisant la puissance de Claude et Gemini pour un code optimisé et des designs innovants.</p>
+          <div class="project-tech">
+            <span class="tech-tag">#HTML</span>
+            <span class="tech-tag">#JavaScript</span>
+            <span class="tech-tag">#AI_Code</span>
+          </div>
+        </div>
+      </div>
+      <div class="project-card" data-aos="fade-up" data-aos-delay="100">
+        <div class="project-img">⚡</div>
+        <div class="project-info">
+          <h3 class="project-name">Smart Automations</h3>
+          <p class="project-desc">Création de workflows intelligents avec Make et n8n pour automatiser des tâches complexes via IA. Agents IA et pipelines AAA via Relevance.</p>
+          <div class="project-tech">
+            <span class="tech-tag">#Make</span>
+            <span class="tech-tag">#n8n</span>
+            <span class="tech-tag">#Relevance</span>
+          </div>
+        </div>
+      </div>
+      <div class="project-card" data-aos="fade-up" data-aos-delay="200">
+        <div class="project-img">🚁</div>
+        <div class="project-info">
+          <h3 class="project-name">Drone Design AI</h3>
+          <p class="project-desc">Conception et simulation de drones assistées par IA, incluant la logique de vol, le design structurel et les prototypes.</p>
+          <div class="project-tech">
+            <span class="tech-tag">#Robotics</span>
+            <span class="tech-tag">#CAD</span>
+            <span class="tech-tag">#AI_Logic</span>
+          </div>
+        </div>
+      </div>
+      <div class="project-card" data-aos="fade-up" data-aos-delay="300">
+        <div class="project-img">🐍</div>
+        <div class="project-info">
+          <h3 class="project-name">Python Scripts</h3>
+          <p class="project-desc">Scripts Python développés avec assistance IA pour l'automatisation, le traitement de données et la création d'outils utilitaires.</p>
+          <div class="project-tech">
+            <span class="tech-tag">#Python</span>
+            <span class="tech-tag">#GitHub</span>
+            <span class="tech-tag">#Automation</span>
+          </div>
+        </div>
+      </div>
+      <div class="project-card" data-aos="fade-up" data-aos-delay="400">
+        <div class="project-img">📝</div>
+        <div class="project-info">
+          <h3 class="project-name">Tech Blog & Research</h3>
+          <p class="project-desc">Recherche technologique active sur l'IA et le développement. Articles réguliers sur les dernières avancées technologiques.</p>
+          <div class="project-tech">
+            <span class="tech-tag">#Writing</span>
+            <span class="tech-tag">#Research</span>
+            <span class="tech-tag">#SEO</span>
+          </div>
+        </div>
+      </div>
+      <div class="project-card" data-aos="fade-up" data-aos-delay="500">
+        <div class="project-img">🤖</div>
+        <div class="project-info">
+          <h3 class="project-name">AI Agents</h3>
+          <p class="project-desc">Agents IA autonomes pour la recherche, la génération de contenu et les interactions avec des APIs externes.</p>
+          <div class="project-tech">
+            <span class="tech-tag">#Relevance</span>
+            <span class="tech-tag">#ChatGPT</span>
+            <span class="tech-tag">#Claude</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="education">
+    <div class="section-header" data-aos="fade-right">
+      <span class="section-num">04.</span>
+      <h2 class="section-title">Parcours & Formation</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="timeline">
+      <div class="timeline-item" data-aos="fade-left">
+        <div class="timeline-dot"></div>
+        <span class="time-date">2026 — Présent</span>
+        <h3 class="time-title">TUMO Marseille</h3>
+        <span class="time-sub">Centre de technologies créatives</span>
+        <p class="time-desc">Apprentissage approfondi de l'IA, de la programmation avancée et du design numérique. Projets créatifs en autonomie guidée.</p>
+      </div>
+      <div class="timeline-item" data-aos="fade-left" data-aos-delay="100">
+        <div class="timeline-dot"></div>
+        <span class="time-date">En cours</span>
+        <h3 class="time-title">Collège Henri Wallon</h3>
+        <span class="time-sub">Élève de 4ème — Marseille, France</span>
+        <p class="time-desc">Orientation mathématiques et sciences. Développement de projets personnels en informatique et IA parallèlement aux études académiques.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="contact-wrapper" data-aos="zoom-in">
+      <h2 class="contact-title">On discute ?</h2>
+      <p class="contact-text">Intéressé par un stage, une collaboration ou simplement parler tech ? Ma porte est toujours ouverte. Je réponds rapidement ! 🚀</p>
+      <div class="contact-methods">
+        <a href="mailto:neurolis.tech@gmail.com" class="contact-link">
+          <span>📧</span> neurolis.tech@gmail.com
+        </a>
+        <a href="tel:+33613062083" class="contact-link">
+          <span>📞</span> +33 06 13 06 20 83
+        </a>
+        <a href="https://actualites-de-technologie.blogspot.com" target="_blank" class="contact-link">
+          <span>📝</span> Mon Blog Tech
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2026 Jed Aloui — Créateur de Ghost-OS-Core | Conçu avec passion & Intelligence Artificielle</p>
+    <p style="margin-top: 15px; opacity: 0.6;">Marseille, France | Élève de 4ème | En quête de stage de 3ème</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    // Initialisation AOS
+    AOS.init({
+      duration: 1000,
+      once: false,
+      mirror: true,
+      offset: 100
+    });
+
+    // Custom Cursor
+    const cursor = document.getElementById('cursor');
+    const trail = document.getElementById('cursor-trail');
+    
+    document.addEventListener('mousemove', (e) => {
+      const { clientX: x, clientY: y } = e;
+      
+      cursor.style.left = x + 'px';
+      cursor.style.top = y + 'px';
+      
+      trail.style.left = x + 'px';
+      trail.style.top = y + 'px';
+    });
+
+    // Interaction curseur
+    const activeElements = document.querySelectorAll('a, button, .skill-box, .project-card, .stat-card, .contact-link, .featured-project');
+    activeElements.forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        cursor.classList.add('active');
+        trail.classList.add('active');
+      });
+      el.addEventListener('mouseleave', () => {
+        cursor.classList.remove('active');
+        trail.classList.remove('active');
+      });
+    });
+
+    // Scroll Progress Bar
+    window.addEventListener('scroll', () => {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      document.getElementById('scroll-progress').style.width = scrolled + "%";
+      
+      // Navbar effect
+      const nav = document.getElementById('navbar');
+      if (window.scrollY > 50) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+    });
+
+    // Parallax Orbs
+    document.addEventListener('mousemove', (e) => {
+      const x = e.clientX / window.innerWidth;
+      const y = e.clientY / window.innerHeight;
+      
+      document.querySelector('.orb-1').style.transform = `translate(${x * 60}px, ${y * 60}px)`;
+      document.querySelector('.orb-2').style.transform = `translate(${-x * 60}px, ${-y * 60}px)`;
+      document.querySelector('.orb-3').style.transform = `translate(${x * 40}px, ${-y * 40}px)`;
+      document.querySelector('.orb-4').style.transform = `translate(${-x * 40}px, ${y * 40}px)`;
+    });
+
+    // Effet de texte matriciel sur le logo au survol
+    const logo = document.querySelector('.nav-logo');
+    const originalText = logo.innerText;
+    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789<>/";
+    
+    logo.addEventListener('mouseover', () => {
+      let iteration = 0;
+      const interval = setInterval(() => {
+        logo.innerText = originalText.split("")
+          .map((letter, index) => {
+            if(index < iteration) return originalText[index];
+            return letters[Math.floor(Math.random() * letters.length)]
+          })
+          .join("");
+        
+        if(iteration >= originalText.length) clearInterval(interval);
+        iteration += 1/3;
+      }, 30);
+    });
+
+    // Animation des chiffres des stats
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const statVal = entry.target.querySelector('.stat-val');
+          if (statVal && statVal.textContent !== '∞') {
+            const finalValue = parseInt(statVal.textContent);
+            let currentValue = 0;
+            const increment = Math.ceil(finalValue / 30);
+            
+            const counter = setInterval(() => {
+              currentValue += increment;
+              if (currentValue >= finalValue) {
+                statVal.textContent = finalValue + '+';
+                clearInterval(counter);
+              } else {
+                statVal.textContent = currentValue;
+              }
+            }, 50);
+          }
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.stat-card').forEach(card => observer.observe(card));
+  </script>
+</body>
+</html>
