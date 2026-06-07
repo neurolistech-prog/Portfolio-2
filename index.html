@@ -32,7 +32,7 @@
     #c-dot{width:5px;height:5px;background:var(--white);border-radius:50%;position:fixed;z-index:9999;pointer-events:none;transform:translate(-50%,-50%);transition:width .15s,height .15s;}
     #c-ring{width:28px;height:28px;border:1px solid rgba(255,255,255,0.3);border-radius:50%;position:fixed;z-index:9998;pointer-events:none;transform:translate(-50%,-50%);transition:width .2s,height .2s,border-color .2s;}
     body.hov #c-dot{width:9px;height:9px;background:var(--accent);}
-    body.hov #c-ring{width:44px;height:44px;border-color:rgba(16,185,129,.5);}
+    body.hov #c-ring{width:44px;height:44px;border-color:rgba(16,185,129,0.5);}
     body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");background-repeat:repeat;background-size:200px 200px;pointer-events:none;z-index:999;opacity:.5;}
     nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content:space-between;align-items:center;padding:0 4rem;height:60px;background:rgba(5,5,5,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
     .nav-logo{font-family:var(--mono);font-size:.75rem;font-weight:500;color:var(--white);letter-spacing:.08em;display:flex;align-items:center;gap:.6rem;}
@@ -307,7 +307,7 @@
     <div class="about-grid">
       <div class="reveal">
         <p class="about-lead">Élève de <strong>4ème au Collège Henri Wallon</strong> à Marseille (cursus accéléré). Je pilote l'architecture de bases de données, l'intégration continue et la programmation backend avec une rigueur d'ingénieur.</p>
-        <p class="about-body">Mon approche du développement repose sur la solidité des structures de données (via SQL ou Firebase Realtime Database) combinée à la puissance d'exécution asynchrone de Node.js et Python. J'orchestre des agents internes via Google AI Studio pour automatiser l'analyse technique.</p>
+        <p class="about-body">Mon approche du développement repose sur la solidité des structures de données (via SQL ou Firebase Realtime Database) combinée à la puissance d'exécution asynchrone de Node.js et Python. J'orchestre des agents intelligents via Google AI Studio pour automatiser l'analyse technique.</p>
         <p class="about-body">En tant que membre actif du programme <strong>TUMO Marseille depuis 2026</strong>, je me spécialise en dehors de mes heures de cours dans le développement informatique de pointe, le design interactif de tableaux de bord et les logiques de programmation avancées.</p>
         <div class="about-quote"><p>"Ma force réside dans ma capacité à lier des architectures cloud asynchrones complexes à des interfaces d'administration en temps réel. Je recherche un stage d'observation immersif au sein d'une équipe technique."</p></div>
       </div>
@@ -349,15 +349,33 @@
       </div>
       <div class="proj-card reveal" style="transition-delay:.07s">
         <div class="proj-top"><div class="proj-num">02</div><span class="proj-badge tumo">TUMO</span></div>
-        <div class="proj-title">HUD Cyber-Futuriste en Canvas</div>
-        <div class="proj-desc">Rendu graphique hautes performances d'un affichage tête haute (HUD) vectoriel interactif codé en pur JavaScript Canvas. Intègre des calculs trigonométriques pour l'animation en temps réel de grilles de visée, de jauges circulaires dynamiques et de widgets matriciels inspirés du cyberpunk.</div>
-        <div class="proj-stack"><span>HTML5 Canvas</span><span>Vanilla JS</span><span>Trigonométrie</span><span>Math</span></div>
+        <div class="proj-title">Interface HUD Animée & Trigonométrique</div>
+        <div class="proj-desc">Projet développé dans les laboratoires TUMO Marseille. Conception d'un affichage tête haute (HUD) cyberpunk interactif codé nativement. Utilisation intensive de calculs trigonométriques pour animer les matrices de données rotatives sur un élément HTML5 Canvas.</div>
+        <div class="proj-stack"><span>JavaScript</span><span>HTML5 Canvas</span><span>Trigonométrie</span><span>HUD Design</span></div>
       </div>
       <div class="proj-card reveal" style="transition-delay:.14s">
-        <div class="proj-top"><div class="proj-num">03</div><span class="proj-badge ia">IA & Script</span></div>
-        <div class="proj-title">Scraper Autonome & Extraction IA</div>
-        <div class="proj-desc">Pipeline asynchrone automatisé sous Node.js utilisant Puppeteer pour l'extraction de données web ciblées. Les documents bruts sont transmis dynamiquement via l'API Google AI Studio pour une structuration logique instantanée.</div>
-        <div class="proj-stack"><span>Node.js</span><span>Puppeteer</span><span>Google AI Studio</span><span>JSON</span></div>
+        <div class="proj-top"><div class="proj-num">03</div><span class="proj-badge sql">SQL</span></div>
+        <div class="proj-title">Orchestrateur Relationnel LeadHunter</div>
+        <div class="proj-desc">Modélisation et requêtage intensif d'une infrastructure de données relationnelle pour stocker les logs d'exécution de robots d'extraction de données B2B. Optimisation d'index complexes et procédures stockées pour accélérer le traitement analytique.</div>
+        <div class="proj-stack"><span>PostgreSQL</span><span>SQL Scripts</span><span>Data Mapping</span><span>Node.js</span></div>
+      </div>
+      <div class="proj-card reveal" style="transition-delay:.21s">
+        <div class="proj-top"><div class="proj-num">04</div><span class="proj-badge ia">IA</span></div>
+        <div class="proj-title">Athena OS Nexus Engine</div>
+        <div class="proj-desc">Développement d'une couche d'interface système intelligente exécutant des scripts d'administration système de manière sécurisée et asynchrone par l'intermédiaire d'agents LLM locaux et distants.</div>
+        <div class="proj-stack"><span>Python</span><span>FastAPI</span><span>Google AI Studio</span><span>Asynchronous I/O</span></div>
+      </div>
+      <div class="proj-card reveal" style="transition-delay:.28s">
+        <div class="proj-top"><div class="proj-num">05</div><span class="proj-badge tumo">TUMO</span></div>
+        <div class="proj-title">Algorithmes d'Autonomie Appliquée</div>
+        <div class="proj-desc">Études algorithmiques menées à TUMO Marseille sur la gestion de capteurs de distance, le lissage de trajectoires et la prise de décision logique séquentielle pour des structures robotiques simulées.</div>
+        <div class="proj-stack"><span>Python</span><span>Logic Control</span><span>Sensor Processing</span></div>
+      </div>
+      <div class="proj-card reveal" style="transition-delay:.35s">
+        <div class="proj-top"><div class="proj-num">06</div><span class="proj-badge web">E-Commerce</span></div>
+        <div class="proj-title">Neurolis Tech Store Automation</div>
+        <div class="proj-desc">Mise en place de pipelines n8n et de configurations de base de données pour synchroniser l'inventaire, le tracking SEO et les ventes numériques de la vitrine marchande de Neurolis Tech.</div>
+        <div class="proj-stack"><span>Shopify</span><span>n8n</span><span>Liquid</span><span>SEO Optimization</span></div>
       </div>
     </div>
   </div>
@@ -365,23 +383,44 @@
 
 <section id="infrastructure">
   <div class="container">
-    <div class="sec-label"><span class="sec-num">04 //</span><h2 class="sec-title">Gestion d'Infrastructures Cloud</h2><div class="sec-line"></div></div>
+    <div class="sec-label"><span class="sec-num">04 //</span><h2 class="sec-title">Section Infrastructure & Cloud Architecture</h2><div class="sec-line"></div></div>
     <div class="infra-layout">
-      <div class="infra-text reveal">
-        <p>Je déploie et administre des architectures légères, sécurisées et hautement distribuées. Mes solutions s'appuient sur l'écosystème <strong>Serverless</strong> pour éliminer les frais d'infrastructure traditionnels et garantir des temps de réponse optimaux sous la milliseconde.</p>
-        <br>
-        <p>L'utilisation intensive de <strong>Cloudflare Workers</strong> me permet de manipuler les requêtes HTTP directement à la périphérie du réseau (Edge Computing). J'automatise également l'intégration continue (CI/CD) via des workflows <strong>GitHub Actions</strong> pour tester, linter et déployer de manière totalement transparente.</p>
+      <div class="reveal">
+        <p class="infra-text" style="margin-bottom: 1.5rem;">
+          L'architecture de mes applications repose sur le principe de la haute disponibilité et de la mise à jour en temps réel. Pour le <strong>CMA Dashboard</strong>, le choix de <strong>Firebase Realtime Database</strong> a permis de centraliser l'état de l'application sous la forme d'un unique arbre JSON volumineux, accessible instantanément par les clients connectés via le protocole WebSocket.
+        </p>
+        <p class="infra-text" style="margin-bottom: 1.5rem;">
+          Chaque modification de l'état système ou de la configuration réseau déclenche instantanément une propagation asynchrone. L'infrastructure élimine le besoin d'un mécanisme classique de requêtage périodique (polling), ce qui réduit drastiquement la consommation de bande passante et garantit une réactivité inférieure à 50 millisecondes lors de la réception d'alertes de monitoring critiques.
+        </p>
+        <p class="infra-text">
+          Le déploiement global est automatisé par le biais de pipelines <strong>GitHub Actions</strong>, qui compilent et déploient les scripts serveurs vers des micro-services isolés et le frontend statique directement sur <strong>Cloudflare Workers</strong>, assurant ainsi une sécurité maximale en périphérie de réseau (Edge Computing).
+        </p>
       </div>
-      <div class="infra-code-box reveal" style="transition-delay:.1s">
-        <div class="panel-header"><div class="pd r"></div><div class="pd y"></div><div class="pd g"></div><div class="panel-title">wrangler.toml</div></div>
-        <div class="panel-body">
-          <div class="pline"><span class="pk">name =</span><span class="pv g">"portfolio-backend"</span></div>
-          <div class="pline"><span class="pk">main =</span><span class="pv g">"src/index.js"</span></div>
-          <div class="pline"><span class="pk">compatibility_date =</span><span class="pv g">"2026-06-07"</span></div>
-          <hr class="psep">
-          <div class="pline"><span class="pk">[vars]</span></div>
-          <div class="pline"><span class="pk">ENVIRONMENT =</span><span class="pv w">"production"</span></div>
-          <div class="pline"><span class="pk">API_URL =</span><span class="pv b">"https://api.neurolis-tech.workers.dev"</span></div>
+      <div class="reveal" style="transition-delay:.15s">
+        <div class="infra-code-box">
+          <div class="st-header"><div class="pd r"></div><div class="pd y"></div><div class="pd g"></div><span>firebase-cluster-config.js</span></div>
+          <div class="st-body">
+            <pre style="font-family: var(--mono); font-size: 0.7rem; line-height: 1.5; color: var(--text2); overflow-x: auto;">
+const firebase = require('firebase-admin');
+const serviceAccount = require('./cma-dashboard-config.json');
+
+firebase.initializeApp({
+  credential: firebase.credential.cert(serviceAccount),
+  databaseURL: "https://cma-dashboard-default-rtdb.firebaseio.com"
+});
+
+const db = firebase.database();
+const ref = db.ref("cma/live_telemetry");
+
+// Écoute en temps réel de l'état de l'infrastructure
+ref.on("child_changed", (snapshot) => {
+  const metric = snapshot.key;
+  const data = snapshot.val();
+  console.log(`[INFRA] Synchronisation Firebase détectée sur : ${metric} ->`, data);
+}, (errorObject) => {
+  console.error("[INFRA] Échec de la lecture Firebase : " + errorObject.code);
+});</pre>
+          </div>
         </div>
       </div>
     </div>
@@ -390,20 +429,29 @@
 
 <section id="sql-section">
   <div class="container">
-    <div class="sec-label"><span class="sec-num">05 //</span><h2 class="sec-title">Optimisation de Requêtes SQL</h2><div class="sec-line"></div></div>
+    <div class="sec-label"><span class="sec-num">05 //</span><h2 class="sec-title">Section Gestion SQL & Persistance Relationnelle</h2><div class="sec-line"></div></div>
     <div class="sql-grid">
-      <div class="sql-desc-text reveal">
-        <p>Une bonne application repose avant tout sur une base de données relationnelle saine. Je conçois des schémas relationnels normalisés sous <strong>PostgreSQL</strong> et <strong>MySQL</strong>.</p>
-        <br>
-        <p>Je maîtrise l'écriture de requêtes complexes incluant des jointures multiples (JOIN), des agrégations avancées et des sous-requêtes imbriquées, tout en veillant à la mise en place d'<strong>index stratégiques</strong> pour optimiser les temps d'exécution sur les gros volumes de données.</p>
+      <div class="reveal">
+        <p class="sql-desc-text" style="margin-bottom: 1.5rem;">
+          Si le temps réel est géré par Firebase, la persistance analytique à long terme et la structuration des données complexes nécessitent l'utilisation de bases de données relationnelles <strong>SQL (PostgreSQL / MySQL)</strong>. Je conçois des schémas relationnels normalisés pour stocker l'historique d'exploitation et les analyses générées par mes systèmes automatisés.
+        </p>
+        <p class="sql-desc-text" style="margin-bottom: 1.5rem;">
+          La maîtrise du langage SQL me permet d'écrire des requêtes optimisées avec des jointures multiples, des agrégations avancées et des filtres précis pour auditer les performances. Cela inclut le partitionnement des tables de logs pour maintenir une vitesse de lecture élevée, même lorsque le volume de données dépasse des dizaines de milliers de lignes d'historique.
+        </p>
+        <p class="sql-desc-text">
+          L'intégrité référentielle, l'indexation stratégique des clés étrangères et la sécurisation des requêtes contre les failles d'injection SQL constituent les fondations techniques de ma méthodologie de gestion de base de données.
+        </p>
       </div>
-      <div class="sql-query-block reveal" style="transition-delay:.1s">
-        <span class="sql-keyword">SELECT</span> p.id, p.title, <span class="sql-keyword">COUNT</span>(t.id) <span class="sql-keyword">AS</span> total_tasks<br>
-        <span class="sql-keyword">FROM</span> <span class="sql-table">projects</span> p<br>
-        <span class="sql-keyword">LEFT JOIN</span> <span class="sql-table">tasks</span> t <span class="sql-keyword">ON</span> p.id = t.project_id<br>
-        <span class="sql-keyword">WHERE</span> p.status = <span class="sql-string">'active'</span><br>
-        <span class="sql-keyword">GROUP BY</span> p.id<br>
-        <span class="sql-keyword">ORDER BY</span> total_tasks <span class="sql-keyword">DESC</span>;<br>
+      <div class="reveal" style="transition-delay: .15s;">
+        <div class="sql-query-block">
+          <span class="sql-keyword">SELECT</span> telemetry_id, device_name, error_level, timestamp<br>
+          <span class="sql-keyword">FROM</span> <span class="sql-table">cma_system_logs</span><br>
+          <span class="sql-keyword">WHERE</span> error_level = <span class="sql-string">'CRITICAL'</span><br>
+          &nbsp;&nbsp;<span class="sql-keyword">AND</span> timestamp >= <span class="sql-keyword">NOW</span>() - <span class="sql-keyword">INTERVAL</span> <span class="sql-string">'24 HOURS'</span><br>
+          <span class="sql-keyword">ORDER BY</span> timestamp <span class="sql-keyword">DESC</span>;<br><br>
+          <span class="sql-keyword">CREATE INDEX</span> idx_telemetry_crit <br>
+          <span class="sql-keyword">ON</span> <span class="sql-table">cma_system_logs</span> (error_level, timestamp);
+        </div>
       </div>
     </div>
   </div>
@@ -411,25 +459,27 @@
 
 <section id="security">
   <div class="container">
-    <div class="sec-label"><span class="sec-num">06 //</span><h2 class="sec-title">Sécurité & Systèmes</h2><div class="sec-line"></div></div>
+    <div class="sec-label"><span class="sec-num">06 //</span><h2 class="sec-title">Sécurité Éthique</h2><div class="sec-line"></div></div>
     <div class="sec-layout">
       <div class="reveal">
-        <div class="sec-body">Mes développements intègrent les principes fondamentaux du <strong>OWASP Top 10</strong> pour immuniser les backends contre les vulnérabilités les plus courantes.</div>
+        <p class="sec-body">Mon intérêt pour la cybersécurité me pousse à appliquer le paradigme du <strong>Secure by Design</strong> dans chacun de mes déploiements. J'analyse régulièrement la robustesse de mes connexions Firebase et de mes accès SQL pour éliminer toute faille potentielle.</p>
         <div class="sec-points">
-          <div class="sec-point"><div class="sp-arrow">→</div><div class="sp-text"><strong>Sanitisation stricte :</strong> Protection systématique contre les injections SQL via des requêtes préparées et paramétrées.</div></div>
-          <div class="sec-point"><div class="sp-arrow">→</div><div class="sp-text"><strong>Gestion d'accès :</strong> Implémentation de mécanismes d'authentification et d'autorisations robustes.</div></div>
-          <div class="sec-point"><div class="sp-arrow">→</div><div class="sp-text"><strong>Chiffrement des flux :</strong> Configuration et forçage du protocole TLS / HTTPS sur l'ensemble de mes endpoints d'API.</div></div>
+          <div class="sec-point"><span class="sp-arrow">→</span><div class="sp-text"><strong>Règles de Sécurité Firebase Realtime</strong> — Implémentation de clauses d'authentification et de validation strictes au niveau des nœuds JSON pour restreindre les droits d'écriture.</div></div>
+          <div class="sec-point"><span class="sp-arrow">→</span><div class="sp-text"><strong>Assainissement des Requêtes SQL</strong> — Utilisation systématique de requêtes préparées et paramétrées pour bloquer toutes les tentatives d'injections de scripts malveillants.</div></div>
+          <div class="sec-point"><span class="sp-arrow">→</span><div class="sp-text"><strong>Chiffrement des Canaux</strong> — Configuration d'échanges de données exclusivement encapsulés sous protocoles TLS/WSS.</div></div>
         </div>
       </div>
-      <div class="sec-terminal reveal" style="transition-delay:.12s">
-        <div class="st-header"><div class="pd r"></div><div class="pd y"></div><div class="pd g"></div><span>bash — secure_check.sh</span></div>
-        <div class="st-body">
-          <div class="st-line"><span class="st-prompt">neurolis@edge:~$</span> <span class="st-cmd">npm audit</span></div>
-          <div class="st-line <span class="st-out ok">found 0 vulnerabilities</span></div>
-          <div class="st-line"><span class="st-prompt">neurolis@edge:~$</span> <span class="st-cmd">curl -I https://neurolis.tech</span></div>
-          <div class="st-line <span class="st-out info">HTTP/2 200 OK</span></div>
-          <div class="st-line <span class="st-out info">strict-transport-security: max-age=63072000</span></div>
-          <div class="st-line"><span class="st-prompt">neurolis@edge:~$</span> <span class="st-cur"></span></div>
+      <div class="reveal" style="transition-delay:.15s">
+        <div class="sec-terminal">
+          <div class="st-header"><div class="pd r"></div><div class="pd y"></div><div class="pd g"></div><span>cma_security_audit.sh</span></div>
+          <div class="st-body">
+            <div class="st-line"><span class="st-prompt">$</span> <span class="st-cmd">./audit --target cma-dashboard-stream</span></div>
+            <div class="st-line"><span class="st-out info">[*] Auditing active Firebase security configuration...</span></div>
+            <div class="st-line"><span class="st-out ok">[✓] Rules .read / .write tightly bound to auth.uid</span></div>
+            <div class="st-line"><span class="st-out info">[*] Scanning application layer for unsanitized SQL statements...</span></div>
+            <div class="st-line"><span class="st-out ok">[✓] All database transactions leverage prepared structures</span></div>
+            <div class="st-line"><span class="st-prompt">$</span> <span class="st-cur"></span></div>
+          </div>
         </div>
       </div>
     </div>
@@ -438,37 +488,23 @@
 
 <section id="formation">
   <div class="container">
-    <div class="sec-label"><span class="sec-num">07 //</span><h2 class="sec-title">Parcours & Éducation</h2><div class="sec-line"></div></div>
+    <div class="sec-label"><span class="sec-num">07 //</span><h2 class="sec-title">Formation</h2><div class="sec-line"></div></div>
     <div class="formation-layout">
       <div class="timeline reveal">
-        <div class="tl-item">
-          <div class="tl-dot"></div>
-          <div class="tl-date">Depuis 2026</div>
-          <div class="tl-title">TUMO Marseille</div>
-          <div class="tl-sub">Centre de technologies créatives — Marseille, FR</div>
-          <div class="tl-desc">Spécialisation avancée en programmation logique, développement d'interfaces interactives et méthodologies de design numérique orientées utilisateur.</div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-dot"></div>
-          <div class="tl-date">En cours</div>
-          <div class="tl-title">Collège Henri Wallon</div>
-          <div class="tl-sub">Classe de 4ème (Cursus Accéléré) — Marseille, FR</div>
-          <div class="tl-desc">Orientation mathématiques fondamentales, logique algorithmique et sciences technologiques.</div>
-        </div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">Depuis 2026</div><div class="tl-title">TUMO Marseille</div><div class="tl-sub">Parcours Académique Extra-Scolaire</div><div class="tl-desc">Développement de compétences avancées en programmation structurée, manipulation d'interfaces en coordonnées polaires/cartésiennes, trigonométrie et design UI/UX moderne.</div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">Cursus Actuel — 2025/2026</div><div class="tl-title">Collège Henri Wallon</div><div class="tl-sub">Classe de 4ème — Marseille, France</div><div class="tl-desc">Parcours scientifique accéléré. Travaux personnels intensifs axés sur l'informatique, les bases de données et la logique d'automatisation.</div></div>
       </div>
       <div class="reveal" style="transition-delay:.15s">
-        <div class="lang-row"><div class="lang-left"><span class="lang-flag">🇫🇷</span><span class="lang-name">Français</span></div><span class="lang-level">Langue Maternelle</span></div>
-        <div class="lang-row"><div class="lang-left"><span class="lang-flag">🇬🇧</span><span class="lang-name">Anglais</span></div><span class="lang-level">Niveau Intermédiaire (B2)</span></div>
-        <div class="lang-row"><div class="lang-left"><span class="lang-flag">🇩🇪</span><span class="lang-name">Allemand</span></div><span class="lang-level">Niveau Débutant (A1)</span></div>
-        
+        <div class="lang-row"><div class="lang-left"><span class="lang-flag">🇫🇷</span><span class="lang-name">Français</span></div><span class="lang-level">Natif</span></div>
+        <div class="lang-row"><div class="lang-left"><span class="lang-flag">🇹🇳</span><span class="lang-name">Arabe</span></div><span class="lang-level">Natif</span></div>
+        <div class="lang-row"><div class="lang-left"><span class="lang-flag">🇬🇧</span><span class="lang-name">Anglais</span></div><span class="lang-level">Intermédiaire (Technique)</span></div>
         <div class="interests-wrap">
-          <div class="interests-title">Centres d'intérêt technologiques</div>
+          <div class="interests-title">Centres d'intérêt techniques</div>
           <div class="interests-tags">
-            <span class="int-tag">Intelligence Artificielle</span>
-            <span class="int-tag">Développement Web Backend</span>
-            <span class="int-tag">Cybersécurité</span>
-            <span class="int-tag">Architectures Serverless</span>
-            <span class="int-tag">Databases</span>
+            <span class="int-tag">🗄️ Architecture de Données SQL / NoSQL</span>
+            <span class="int-tag">☁️ Gestion d'Infrastructure temps réel</span>
+            <span class="int-tag">🧠 Pipelines IA & Google AI Studio</span>
+            <span class="int-tag">🎨 Design Logiciel Cyberpunk (HUD)</span>
           </div>
         </div>
       </div>
@@ -479,24 +515,13 @@
 <section id="blog">
   <div class="container">
     <div class="sec-label"><span class="sec-num">08 //</span><h2 class="sec-title">Veille Technologique</h2><div class="sec-line"></div></div>
-    <p class="blog-lead reveal">J'analyse les tendances technologiques, la sécurité et l'évolution des frameworks modernes sur mon blog personnel : <a href="https://actualites-de-technolgie.blogspot.com" target="_blank">Neurolis Tech Blog</a>.</p>
-    <div class="blog-grid reveal" style="transition-delay:.1s">
-      <div class="blog-card">
-        <div class="bc-tag">Architecture</div>
-        <div class="bc-title">Pourquoi s'appuyer sur le modèle NoSQL pour le temps réel ?</div>
-        <div class="bc-date">02 Juin 2026</div>
-      </div>
-      <div class="blog-card">
-        <div class="bc-tag">Sécurité</div>
-        <div class="bc-title">Analyse des mécanismes de validation des entrées en Node.js</div>
-        <div class="bc-date">28 Mai 2026</div>
-      </div>
-      <div class="blog-card">
-        <div class="bc-tag">Cloud</div>
-        <div class="bc-title">Edge Computing : Déployer ses fonctions au plus près de l'utilisateur</div>
-        <div class="bc-date">15 Mai 2026</div>
-      </div>
+    <p class="blog-lead">Je rédige régulièrement des synthèses de mes expérimentations sur <a href="https://actualites-de-technolgie.blogspot.com" target="_blank">actualites-de-technolgie.blogspot.com</a>, couvrant la programmation, les bases de données et les architectures cloud.</p>
+    <div class="blog-grid reveal">
+      <div class="blog-card"><div class="bc-tag">Infrastructure</div><div class="bc-title">Optimiser la réplication en temps réel avec Firebase Realtime Database</div><div class="bc-date">Neurolis Tech Blog</div></div>
+      <div class="blog-card"><div class="bc-tag">SQL</div><div class="bc-title">Indexation et optimisation de requêtes SQL complexes pour l'analyse de logs</div><div class="bc-date">Neurolis Tech Blog</div></div>
+      <div class="blog-card"><div class="bc-tag">TUMO Web</div><div class="bc-title">Trigonométrie et rendu graphique vectoriel sous HTML5 Canvas</div><div class="bc-date">Neurolis Tech Blog</div></div>
     </div>
+    <a href="https://actualites-de-technolgie.blogspot.com" target="_blank" class="btn btn-outline">Consulter tous les articles →</a>
   </div>
 </section>
 
@@ -505,36 +530,28 @@
     <div class="sec-label"><span class="sec-num">09 //</span><h2 class="sec-title">Contact</h2><div class="sec-line"></div></div>
     <div class="contact-grid">
       <div class="reveal">
-        <h3 class="contact-h3">Discutons de vos opportunités <span>techniques.</span></h3>
-        <p class="contact-p">À la recherche d'un profil autonome, rigoureux et passionné pour un stage d'observation de 3ème ? Envoyez-moi un message direct ou consultez mes dépôts.</p>
+        <h3 class="contact-h3">Collaborons sur <span>des architectures solides.</span></h3>
+        <p class="contact-p">Si vous recherchez un stagiaire de 3ème capable de comprendre vos infrastructures de données, vos schémas SQL et d'intégrer des fonctionnalités automatisées complexes, contactez-moi.</p>
         <div class="contact-links">
-          <a href="mailto:neurolis.tech@gmail.com" class="clink"><span class="clink-icon">M</span><span class="clink-text">neurolis.tech@gmail.com</span><span class="clink-arrow">→</span></a>
-          <a href="https://neurolistech-prog.github.io/Portfolio-2/" target="_blank" class="clink"><span class="clink-icon">G</span><span class="clink-text">GitHub Dépôts</span><span class="clink-arrow">→</span></a>
-          <a href="https://actualites-de-technolgie.blogspot.com" target="_blank" class="clink"><span class="clink-icon">B</span><span class="clink-text">Blog de Veille</span><span class="clink-arrow">→</span></a>
+          <a class="clink" href="mailto:neurolis.tech@gmail.com"><span class="clink-icon">✉</span><span class="clink-text">neurolis.tech@gmail.com</span><span class="clink-arrow">↗</span></a>
+          <a class="clink" href="https://neurolistech-prog.github.io/Portfolio-2/" target="_blank"><span class="clink-icon">⌥</span><span class="clink-text">neurolistech-prog.github.io/Portfolio-2</span><span class="clink-arrow">↗</span></a>
         </div>
       </div>
       <div class="aside-cards reveal" style="transition-delay:.15s">
-        <div class="aside-c">
-          <div class="ac-label">Disponibilité</div>
-          <div class="ac-text">Recherche active d'un <strong>stage d'observation de 3ème</strong> (durée : 1 semaine). Éligible sur Marseille, Paris ou en Remote complet.</div>
-          <div class="ac-badge">Prêt pour l'immersion</div>
-        </div>
-        <div class="aside-c">
-          <div class="ac-label">Philosophie</div>
-          <div class="ac-text">"La clarté du code et la propreté de l'architecture backend priment sur le reste. Automatiser tout ce qui peut l'être."</div>
-        </div>
+        <div class="aside-c"><div class="ac-label">📍 Disponibilité Géographique</div><div class="ac-text">Marseille, France (Possibilité d'axe sur Paris ou télétravail complet)</div></div>
+        <div class="aside-c"><div class="ac-label">🎯 Objectif Professionnel</div><div class="ac-text">Stage d'observation de 3ème orienté Développement Backend, SQL Administration, Cloud ou IA.</div><div class="ac-badge">Statut : À la recherche</div></div>
       </div>
     </div>
   </div>
 </section>
 
 <section id="cta">
-  <div class="cta-inner container reveal">
-    <div class="cta-label">// Initialiser une collaboration</div>
-    <h2 class="cta-h2">Prêt à intégrer un profil passionné <span>dans votre équipe ?</span></h2>
+  <div class="cta-inner reveal">
+    <div class="cta-label">// Intégration de haut niveau</div>
+    <h2 class="cta-h2">Prêt à intégrer un profil axé <span>automatisation, SQL et architectures temps réel</span> à votre équipe ?</h2>
     <div class="cta-buttons">
-      <a href="mailto:neurolis.tech@gmail.com" class="btn btn-accent">Envoyer un mail</a>
-      <a href="#about" class="btn btn-outline">Revenir au profil</a>
+      <a href="mailto:neurolis.tech@gmail.com" class="btn btn-accent">Initier la discussion par email</a>
+      <a href="#projects" class="btn btn-outline">Parcourir à nouveau les projets</a>
     </div>
   </div>
 </section>
@@ -545,31 +562,48 @@
 </footer>
 
 <script>
-const dot=document.getElementById('c-dot'),ring=document.getElementById('c-ring');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});
-(function t(){rx+=(mx-rx)*.11;ry+=(my-ry)*.11;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(t);})();
-document.querySelectorAll('a,button,.proj-card,.skill-block,.blog-card,.int-tag,.clink').forEach(el=>{
-  el.addEventListener('mouseenter',()=>document.body.classList.add('hov'));
-  el.addEventListener('mouseleave',()=>document.body.classList.remove('hov'));
-});
-const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');obs.unobserve(e.target);}});},{threshold:.07});
-document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
-
-// Gestion de la classe active sur les liens de navigation au défilement
-const sections = document.querySelectorAll('section');
-const navLinks = document.querySelectorAll('.nav-links a');
-window.addEventListener('scroll', () => {
-  let current = '';
-  sections.forEach(section => {
-    const sectionTop = section.offsetTop;
-    if (pageYOffset >= sectionTop - 120) { current = section.getAttribute('id'); }
+  const dot = document.getElementById('c-dot'), ring = document.getElementById('c-ring');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX;
+    my = e.clientY;
+    dot.style.left = mx + 'px';
+    dot.style.top = my + 'px';
   });
-  navLinks.forEach(link => {
-    link.classList.remove('active');
-    if (link.getAttribute('href').includes(current)) { link.classList.add('active'); }
+  
+  (function t() {
+    rx += (mx - rx) * .11;
+    ry += (my - ry) * .11;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(t);
+  })();
+  
+  document.querySelectorAll('a, button, .proj-card, .skill-block, .blog-card, .int-tag').forEach(el => {
+    el.addEventListener('mouseenter', () => document.body.classList.add('hov'));
+    el.addEventListener('mouseleave', () => document.body.classList.remove('hov'));
   });
-});
+  
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('vis');
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: .07 });
+  
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  
+  const secs = document.querySelectorAll('section[id]'), links = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let c = '';
+    secs.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 200) c = s.id;
+    });
+    links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + c));
+  }, { passive: true });
 </script>
 </body>
 </html>
